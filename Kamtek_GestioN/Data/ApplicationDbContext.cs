@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Kamtek_GestioN.Models;
 
 namespace Kamtek_GestioN.Data
 {
@@ -12,5 +13,12 @@ namespace Kamtek_GestioN.Data
             : base(options)
         {
         }
+        public DbSet<Kamtek_GestioN.Models.Article> Articles { get; set; }
+       
+       
+        public DbSet<Kamtek_GestioN.Models.Categorie> Categories { get; set; }
+       
+       
+        public DbSet<Kamtek_GestioN.Models.Utilisateur> Utilisateurs { get; set; }
     }
 }

@@ -34,6 +34,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quantite)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Categorie)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -62,9 +66,13 @@
                 @Html.DisplayFor(modelItem => item.Quantite)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Categorie.Nom)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-secondary" asp-route-id="@item.Id" asp-action="Create" asp-controller="Commandes"> Ajouter à la commande </a>
             </td>
         </tr>
 }

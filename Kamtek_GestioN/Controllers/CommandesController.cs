@@ -7,76 +7,80 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
-using Kamtek_GestioN.ViewModel;
-using AutoMapper;
 
 namespace Kamtek_GestioN.Controllers
 {
-    public class ArticlesController : Controller
+    public class CommandesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ArticlesController(ApplicationDbContext context)
+        public CommandesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Articles
+        // GET: Commandes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articles.ToListAsync());
+            //C'est pour afficher toutes les commandes 
+            return View(await _context.Commande.ToListAsync());
         }
 
-        // GET: Articles/Details/5
+
+        // GET: Commandes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            //pour les details de chaque commande 
             if (id == null)
             {
                 return NotFound();
             }
 
-            var article = await _context.Articles
+            var commande = await _context.Commande
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            if (commande == null)
             {
                 return NotFound();
             }
 
-            return View(article);
+            return View(commande);
         }
 
-        // GET: Articles/Create
-        public IActionResult Create()
+        // GET: Commandes/Create
+        public IActionResult Create( int id )
         {
-            ViewBag.listeCategorie = _context.Categories.ToList(); 
+            //pour créér la commande 
+            //1-Recupere via id le id de l'article qui je veux ajouter a la commande
+            //2-recuperer l'article en objet
+            var article = _context.Articles.SingleOrDefault(x=>x.Id==id);
+            //3-avec l objet on va envoyer la ligne de commande
+            //3-1 instancier une ligne de commande
+            LigneCommande lignCMD = new LigneCommande();
+            lignCMD.Article = article;
+            //lignCMD.Commande = ;
+            ViewBag.lignCMD = lignCMD;
+
+
             return View();
         }
 
-        // POST: Articles/Create
+        // POST: Commandes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ArticleVM articleVM)
+        public async Task<IActionResult> Create([Bind("Id,RefContrat,DateCommande")] Commande commande)
         {
             if (ModelState.IsValid)
             {
-
-                Article article = new Article();
-                var config = new MapperConfiguration(cfg =>cfg.CreateMap<ArticleVM, Article>());
-                var mapper = new Mapper(config);
-                article = mapper.Map<Article>(articleVM);
-
-                article.Categorie = await _context.Categories.FindAsync(articleVM.IdCategorie);
-
-                _context.Add(article);
+                _context.Add(commande);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(articleVM);
+            return View(commande);
         }
 
-        // GET: Articles/Edit/5
+        // GET: Commandes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,22 +88,22 @@ namespace Kamtek_GestioN.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Articles.FindAsync(id);
-            if (article == null)
+            var commande = await _context.Commande.FindAsync(id);
+            if (commande == null)
             {
                 return NotFound();
             }
-            return View(article);
+            return View(commande);
         }
 
-        // POST: Articles/Edit/5
+        // POST: Commandes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Designation,Descriptif,Etat,Photo,DateEntree,DateSortie,Quantite")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RefContrat,DateCommande")] Commande commande)
         {
-            if (id != article.Id)
+            if (id != commande.Id)
             {
                 return NotFound();
             }
@@ -108,12 +112,12 @@ namespace Kamtek_GestioN.Controllers
             {
                 try
                 {
-                    _context.Update(article);
+                    _context.Update(commande);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArticleExists(article.Id))
+                    if (!CommandeExists(commande.Id))
                     {
                         return NotFound();
                     }
@@ -124,10 +128,10 @@ namespace Kamtek_GestioN.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(article);
+            return View(commande);
         }
 
-        // GET: Articles/Delete/5
+        // GET: Commandes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,30 +139,30 @@ namespace Kamtek_GestioN.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Articles
+            var commande = await _context.Commande
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            if (commande == null)
             {
                 return NotFound();
             }
 
-            return View(article);
+            return View(commande);
         }
 
-        // POST: Articles/Delete/5
+        // POST: Commandes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
-            _context.Articles.Remove(article);
+            var commande = await _context.Commande.FindAsync(id);
+            _context.Commande.Remove(commande);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArticleExists(int id)
+        private bool CommandeExists(int id)
         {
-            return _context.Articles.Any(e => e.Id == id);
+            return _context.Commande.Any(e => e.Id == id);
         }
     }
 }

@@ -70,10 +70,11 @@
             </td>
             <td>
                 
-                
-                <a class="btn btn-info m-1" asp-action="Details" asp-route-id="@item.Id">Voir</a> 
-              
-                <a class="btn btn-outline-info m-1" asp-route-id="@item.Id" asp-action="Create" asp-controller="Commandes"> Ajouter à la commande </a>
+                <div class="row">
+                    <a class="btn btn-info m-1 btn-block" asp-action="Details" asp-route-id="@item.Id">Voir la commande</a>
+
+                    <a class="btn btn-info m-1 btn-block" asp-route-id="@item.Id" asp-action="Create" asp-controller="Commandes"> Ajouter à la commande </a>
+                </div>
             </td>
         </tr>
 }

@@ -5,32 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center text-capitalize">Ajouter une categorie</h1>
+<h1 class=" justify-content-lg-start m-3">Ajouter une categorie</h1>
 
 
 <hr/>
 <div class="container">
 
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-lg-start">
         <div class="col-md-4">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Nom" class="control-label"></label>
+                    <label asp-for="Nom" class="control-label font-weight-bold"></label>
                     <input asp-for="Nom" class="form-control" />
                     @*<span asp-validation-for="Nom" class="text-danger"></span>*@
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Ajouter" class="btn btn-primary" />
+                    <input type="submit" value="Ajouter" class="btn btn-info btn-block" />
+                    <a class="btn btn-secondary btn-block" asp-action="Index">Retour aux categories</a>
                 </div>
+               
             </form>
         </div>
     </div>
 
-    <div>
-        <a class="btn peach-gradient"  asp-action="Index">Retour aux categories</a>
-    </div>
+   
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

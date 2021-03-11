@@ -84,4 +84,14 @@ body {
 .dropdown {
     margin:2px;
 }
-
+/*boutons PDF*/
+.btn-pdf {
+    color: #fff;
+    background-color: #00b1ab;
+    border-color: #00b1ab;
+}
+.btn-art {
+    color: #fff;
+    background-color: #0EA796;
+    border-color: #0EA796;
+}

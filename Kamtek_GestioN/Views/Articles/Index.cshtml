@@ -8,7 +8,12 @@
 <h1 class="text-center">Inventaire</h1>
 
 <p>
-    <a class="btn btn-secondary" asp-action="Create">Ajouter un article</a>
+    <a class="btn" asp-action="Create">
+        <img height="60" width="65" src="~/Images/Panier.png" asp-append-version="true" />
+    </a>
+    <a class="btn" asp-action="PDF">
+        <img height="50" width="50" src="~/Images/pdf.png"  asp-append-version="true" />
+    </a>
 </p>
 <table class="table">
     <thead>

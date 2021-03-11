@@ -10,6 +10,7 @@ using Kamtek_GestioN.Models;
 using Kamtek_GestioN.ViewModel;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Rotativa.AspNetCore;
 
 namespace Kamtek_GestioN.Controllers
 {
@@ -17,6 +18,8 @@ namespace Kamtek_GestioN.Controllers
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        private static List<Article> listarticle;
 
         public ArticlesController(ApplicationDbContext context)
         {
@@ -28,8 +31,17 @@ namespace Kamtek_GestioN.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articles.Include(x => x.Categorie).ToListAsync());
+            
         }
 
+        public async Task<IActionResult> PDF()
+        {
+            var articlePdf = await _context.Articles.Include(x => x.Categorie).ToListAsync();
+            return new ViewAsPdf("PDF", articlePdf);
+            
+        }
+
+        
         // GET: Articles/Details/5
         public async Task<IActionResult> Details(int? id)
         {

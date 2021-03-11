@@ -54,7 +54,10 @@
             @Html.DisplayFor(model => model.Quantite)
         </dd>
     </dl>
+
+    <a class="btn btn-secondary" asp-route-id="@Model.Id" asp-action="Create" asp-controller="Commandes" > Ajouter à la commande </a>
 </div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

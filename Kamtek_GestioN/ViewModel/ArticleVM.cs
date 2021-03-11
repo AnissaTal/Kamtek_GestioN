@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kamtek_GestioN.Models
+namespace Kamtek_GestioN.ViewModel
 {
-    public class Article
+    public class ArticleVM
     {
         [Key]
         public int Id { get; set; }
@@ -30,6 +30,10 @@ namespace Kamtek_GestioN.Models
         [Display(Name = "Quantité")]
         public int Quantite { get; set; }
 
-        public virtual Categorie Categorie { get; set; }
+        [Display(Name = "Catégorie")]
+        public int IdCategorie { get; set; }
     }
+
+
 }
+

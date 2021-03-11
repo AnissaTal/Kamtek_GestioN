@@ -1,62 +1,71 @@
-﻿@model Kamtek_GestioN.Models.Article
+﻿@model Kamtek_GestioN.ViewModel.ArticleVM
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1 class="text-center text-capitalize" >Ajouter un article</h1>
 
-<h4>Article</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Designation" class="control-label"></label>
-                <input asp-for="Designation" class="form-control" />
-                <span asp-validation-for="Designation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descriptif" class="control-label"></label>
-                <input asp-for="Descriptif" class="form-control" />
-                <span asp-validation-for="Descriptif" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Etat" class="control-label"></label>
-                <input asp-for="Etat" class="form-control" />
-                <span asp-validation-for="Etat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Photo" class="control-label"></label>
-                <input asp-for="Photo" class="form-control" />
-                <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateEntree" class="control-label"></label>
-                <input asp-for="DateEntree" class="form-control" />
-                <span asp-validation-for="DateEntree" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateSortie" class="control-label"></label>
-                <input asp-for="DateSortie" class="form-control" />
-                <span asp-validation-for="DateSortie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantite" class="control-label"></label>
-                <input asp-for="Quantite" class="form-control" />
-                <span asp-validation-for="Quantite" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container" >
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Designation" class="control-label"></label>
+                    <input asp-for="Designation" class="form-control" />
+                    <span asp-validation-for="Designation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descriptif" class="control-label"></label>
+                    <input asp-for="Descriptif" class="form-control" />
+                    <span asp-validation-for="Descriptif" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Etat" class="control-label"></label>
+                    <input asp-for="Etat" class="form-control" />
+                    <span asp-validation-for="Etat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Photo" class="control-label"></label>
+                    <input asp-for="Photo" class="form-control" />
+                    <span asp-validation-for="Photo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateEntree" class="control-label"></label>
+                    <input asp-for="DateEntree" class="form-control" />
+                    <span asp-validation-for="DateEntree" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateSortie" class="control-label"></label>
+                    <input asp-for="DateSortie" class="form-control" />
+                    <span asp-validation-for="DateSortie" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Quantite" class="control-label"></label>
+                    <input asp-for="Quantite" class="form-control" />
+                    <span asp-validation-for="Quantite" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdCategorie" class="control-label"></label>
+                    <select asp-items="@(new SelectList(ViewBag.listeCategorie,"Id","Nom"))" asp-for="IdCategorie" class="form-control" >
+
+                    </select>
+                    <span asp-validation-for="IdCategorie" class="text-danger"> </span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Ajouter" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary"> Retour aux articles</a>
 </div>
 
 @section Scripts {

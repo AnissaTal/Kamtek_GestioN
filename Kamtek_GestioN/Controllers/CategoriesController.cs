@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kamtek_GestioN.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;

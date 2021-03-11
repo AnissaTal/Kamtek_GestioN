@@ -1,42 +1,84 @@
 ﻿@model Kamtek_GestioN.Models.Commande
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Mon Panier";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Creation de Commandes</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="RefContrat" class="control-label"></label>
-                <input asp-for="RefContrat" class="form-control" />
-                <span asp-validation-for="RefContrat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCommande" class="control-label"></label>
-                <input asp-for="DateCommande" class="form-control" />
-                <span asp-validation-for="DateCommande" class="text-danger"></span>
-            </div>
-            <div>
-                <p> @ViewBag.lignCMD.Article.Id </p>
-                <p> @ViewBag.lignCMD.Article.Designation </p>
-                <p> @ViewBag.lignCMD.Article.Descriptif </p>
-          
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="RefContrat" class="control-label"></label>
+                    <input asp-for="RefContrat" class="form-control" />
+                    <span asp-validation-for="RefContrat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateCommande" class="control-label"></label>
+                    <input asp-for="DateCommande" class="form-control" />
+                    <span asp-validation-for="DateCommande" class="text-danger"></span>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Utilisateur
+                                </th>
+                                <th>
+                                    Quantité
+                                </th>
+                                <th>
+                                    Date Ajout Article Au Commande
+                                </th>
+                                <th>
+                                    Nom Article
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.ligneCommande)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.UserId
+                                    </td>
+                                    <td>
+                                        @item.Quantite
+                                    </td>
+                                    <td>
+                                        @item.DateCreated
+                                    </td>
+                                    <td>
+                                        @item.Article.Designation
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.LigneId">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.LigneId">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.LigneId">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour liste Commandes</a>
 </div>
 
 @section Scripts {

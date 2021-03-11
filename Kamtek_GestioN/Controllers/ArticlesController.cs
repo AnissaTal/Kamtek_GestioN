@@ -24,7 +24,7 @@ namespace Kamtek_GestioN.Controllers
         // GET: Articles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articles.ToListAsync());
+            return View(await _context.Articles.Include(x => x.Categorie).ToListAsync());
         }
 
         // GET: Articles/Details/5

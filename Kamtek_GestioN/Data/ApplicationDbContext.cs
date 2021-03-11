@@ -22,6 +22,9 @@ namespace Kamtek_GestioN.Data
         public DbSet<Kamtek_GestioN.Models.Utilisateur> Utilisateurs { get; set; }
        
        
-        public DbSet<Kamtek_GestioN.Models.Commande> Commande { get; set; }
+        public DbSet<Kamtek_GestioN.Models.Commande> Commandes { get; set; }
+        public DbSet<Kamtek_GestioN.Models.LigneCommande> LigneCommandes { get; set; }
+
+
     }
 }

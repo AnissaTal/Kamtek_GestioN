@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kamtek_GestioN.Controllers
 {
+    [Authorize]
     public class CommandesController : Controller
     {
         private readonly ApplicationDbContext _context;

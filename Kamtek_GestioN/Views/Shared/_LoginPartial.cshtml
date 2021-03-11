@@ -3,7 +3,7 @@
 @inject UserManager<IdentityUser> UserManager
 
 
-@*<nav class="navbar navbar-expand-lg navbar-light bg-light">*@
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,58 +16,49 @@
             {
 
                
-        <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
+            <div class="container">
+                <div class="dropdown">
+
+                    <button class="btn btn-success dropdown-toggle" type="button" id="btnGroupDrop1" data-toggle="dropdown" aria-haspopup="true">
                         Article
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Ajouter Article</a>
-                        <a class="dropdown-item" href="#">Lister Article</a>
-                        @* Ligne de separation
-                                    <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>*@
-                    </div>
-                </li>
+                    </button>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categorie
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Ajouter Categorie</a>
-                        <a class="dropdown-item" href="#">Lister Categorie</a>
-                        @* Ligne de separation
-                                    <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>*@
-                    </div>
-                </li>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <a class="dropdown-item" asp-controller="Articles" asp-action="Create">Ajouter Article</a>
+                        <a class="dropdown-item" asp-controller="Articles" asp-action="Index">Lister Article</a>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                </div>
+                <div class="dropdown">
+
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Catégorie
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <a class="dropdown-item" asp-controller="Categories" asp-action="Create">Ajouter Categorie</a>
+                        <a class="dropdown-item" asp-controller="Categories" asp-action="Index">Lister Categorie</a>
+
+                    </div>
+                </div>
+
+                <div class="dropdown">
+
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Commande
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Ajouter Commande</a>
-                        <a class="dropdown-item" href="#">Lister Commande</a>
-                        @* Ligne de separation
-                                    <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>*@
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <a class="dropdown-item" asp-controller="Commandes" asp-action="Create">Ajouter Commande</a>
+                        <a class="dropdown-item" asp-controller="Commandes" asp-action="Index">Lister Commande</a>
+
                     </div>
-                </li>
-
-
-            </ul>
+                </div>
             </div>
-
-
-            @*<form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>*@
-
-
+        </nav>
 
             //rutpure bootstrap -----------------------------
 
@@ -100,4 +91,4 @@
         }
 
     
-@*</nav>*@
+

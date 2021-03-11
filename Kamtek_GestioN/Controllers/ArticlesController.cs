@@ -9,9 +9,11 @@ using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
 using Kamtek_GestioN.ViewModel;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kamtek_GestioN.Controllers
 {
+    [Authorize]
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,6 +24,7 @@ namespace Kamtek_GestioN.Controllers
         }
 
         // GET: Articles
+       
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articles.Include(x => x.Categorie).ToListAsync());
@@ -45,6 +48,7 @@ namespace Kamtek_GestioN.Controllers
             return View(article);
         }
 
+        
         // GET: Articles/Create
         public IActionResult Create()
         {
@@ -55,6 +59,8 @@ namespace Kamtek_GestioN.Controllers
         // POST: Articles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ArticleVM articleVM)

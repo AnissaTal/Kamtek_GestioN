@@ -10,58 +10,87 @@
 
 <hr />
 <div class="container" >
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Designation" class="control-label"></label>
-                    <input asp-for="Designation" class="form-control" />
-                    <span asp-validation-for="Designation" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Descriptif" class="control-label"></label>
-                    <input asp-for="Descriptif" class="form-control" />
-                    <span asp-validation-for="Descriptif" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Etat" class="control-label"></label>
-                    <input asp-for="Etat" class="form-control" />
-                    <span asp-validation-for="Etat" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Photo" class="control-label"></label>
-                    <input asp-for="Photo" class="form-control" />
-                    <span asp-validation-for="Photo" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateEntree" class="control-label"></label>
-                    <input asp-for="DateEntree" class="form-control" />
-                    <span asp-validation-for="DateEntree" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateSortie" class="control-label"></label>
-                    <input asp-for="DateSortie" class="form-control" />
-                    <span asp-validation-for="DateSortie" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Quantite" class="control-label"></label>
-                    <input asp-for="Quantite" class="form-control" />
-                    <span asp-validation-for="Quantite" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="IdCategorie" class="control-label"></label>
-                    <select asp-items="@(new SelectList(ViewBag.listeCategorie,"Id","Nom"))" asp-for="IdCategorie" class="form-control" >
+    <div class="row justify-content-lg-start">
+        
+        <form asp-action="Create">
 
-                    </select>
-                    <span asp-validation-for="IdCategorie" class="text-danger"> </span>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row justify-content-around">
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label asp-for="Designation" class="control-label"></label>
+                        <input asp-for="Designation" class="form-control" />
+                        <span asp-validation-for="Designation" class="text-danger"></span>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Ajouter" class="btn btn-primary" />
+                <div class="col-xs-3">
+                    <div class="form-group">
+                        <label asp-for="Descriptif" class="control-label"></label>
+                        <input asp-for="Descriptif" class="form-control" />
+                        <span asp-validation-for="Descriptif" class="text-danger"></span>
+                    </div>
+                   </div>
                 </div>
-            </form>
-        </div>
+
+                <div class="row justify-content-around">
+                    <div class="form-group">
+                        <label asp-for="Photo" class="control-label"></label>
+                        <input asp-for="Photo" class="form-control" />
+                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Etat" class="control-label"></label>
+                        <input asp-for="Etat" class="form-control" />
+                        <span asp-validation-for="Etat" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="row justify-content-around">
+                    <div class="w-33 p-3">
+                        <div class="form-group">
+                            <label asp-for="DateEntree" class="control-label"></label>
+                            <input asp-for="DateEntree" class="form-control" />
+                            <span asp-validation-for="DateEntree" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="w-33 p-3">
+                        <div class="form-group">
+                            <label asp-for="DateSortie" class="control-label"></label>
+                            <input asp-for="DateSortie" class="form-control" />
+                            <span asp-validation-for="DateSortie" class="text-danger"></span>
+                        </div>
+                        </div>
+                    </div>
+
+                <div class="row justify-content-around">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="IdCategorie" class="control-label"></label>
+                            <select asp-items="@(new SelectList(ViewBag.listeCategorie,"Id","Nom"))" asp-for="IdCategorie" class="form-control">
+                            </select>
+                            <span asp-validation-for="IdCategorie" class="text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Quantite" class="control-label"></label>
+                            <input asp-for="Quantite" class="form-control" />
+                            <span asp-validation-for="Quantite" class="text-danger"></span>
+                        </div>
+                        </div>
+                    </div>
+            <br />
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Ajouter" class="btn btn-info" />
+                    </div>
+</form>
+       
     </div>
 </div>
 <div>

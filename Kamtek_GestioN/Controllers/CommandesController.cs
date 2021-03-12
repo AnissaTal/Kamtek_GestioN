@@ -84,7 +84,18 @@ namespace Kamtek_GestioN.Controllers
         {
             List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
             int index = isExist(id);
-            commande.RemoveAt(index);
+            if (commande[index].Quantite == 1)
+            {
+                // Si dans la commande, la quantité de ligneCommande à cet index est == 1
+                // Tu supprimes la ligneCommande de la commande en cours
+                commande.RemoveAt(index);
+
+            }
+            else
+            {
+                // Sinon tu modifies la quantité
+                commande[index].Quantite--;
+            }
             SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
             return RedirectToAction("Index");
         }

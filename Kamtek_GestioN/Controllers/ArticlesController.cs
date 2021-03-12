@@ -19,8 +19,6 @@ namespace Kamtek_GestioN.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        private static List<Article> listarticle;
-
         public ArticlesController(ApplicationDbContext context)
         {
             _context = context;

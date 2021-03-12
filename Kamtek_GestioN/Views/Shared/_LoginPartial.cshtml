@@ -12,8 +12,8 @@
             {
 
                
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
-            <div class="container">
+        <nav class="navbar navbar-toggleable-sm navbar-light justify-content-center mb-3">
+            <div class="container ">
                 <div class="dropdown">
 
                     <button class="btn btn-art dropdown-toggle btn-info" type="button" id="btnGroupDrop1" data-toggle="dropdown" aria-haspopup="true">
@@ -58,26 +58,30 @@
 
             //rutpure bootstrap -----------------------------
 
-    <div class="collapse navbar-collapse align-items-end" id="navbarSupportedContent3">
-        
-            <div class="nav-item">
-                
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                    <img height="55" width="60" src="~/Images/Login.png" asp-append-version="true" />
-                    Connecté(e)
+    <div class="collapse navbar-collapse flex-row justify-content-end" id="navbarSupportedContent3">
 
-                </a>
-                
+    <div class="nav-item">
+
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <div class="row flex-column m-0 align-items-center">
+                <img class="img-fluid" height="45" width="50" src="~/Images/Login.png" asp-append-version="true" />
+                Connecté(e)
             </div>
-            <div class="nav-item">
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
-                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">
-                        <img height="60" width="65" src="~/Images/Logout.png" asp-append-version="true" />
-                        Déconnexion
-                    </button>
-                </form>
-            </div>
+        </a>
+
+    </div>
+    <div class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="position-absolute top-0 start-100 translate-middle btn ">
+                <div class="row flex-column m-0 align-items-center">
+                    <img class="img-fluid" height="45" width="50" src="~/Images/Logout.png" asp-append-version="true" />
+                    Déconnexion
+                </div>
+            </button>
+        </form>
+    </div>
+
         
         
    </div>
@@ -86,17 +90,18 @@
         }
         else
         {
-        
-            <div class="nav-item">
-                <a class="nav-link text-dark font-weight-bold" asp-area="Identity" asp-page="/Account/Register">
-                    <img height="80" width="95" src="~/Images/Inscription.jpg"  asp-append-version="true" />
-                </a>
-            </div>
-            <div class="nav-item">
-                <a class="nav-link text-dark font-weight-bold" asp-area="Identity" asp-page="/Account/Login">
-                    <img height="80" width="100" src="~/Images/Connexion2.jpg" asp-append-version="true" />
-                </a>
-            </div>
+<div class="row ml-auto ">
+    <div class="nav-item">
+        <a class="nav-link text-dark font-weight-bold" asp-area="Identity" asp-page="/Account/Register">
+            <img height="80" width="95" src="~/Images/Inscription.jpg" asp-append-version="true" />
+        </a>
+    </div>
+    <div class="nav-item">
+        <a class="nav-link text-dark font-weight-bold" asp-area="Identity" asp-page="/Account/Login">
+            <img height="80" width="100" src="~/Images/Connexion2.jpg" asp-append-version="true" />
+        </a>
+    </div>
+</div>
 
         
         }

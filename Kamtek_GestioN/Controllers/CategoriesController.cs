@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
 using Microsoft.AspNetCore.Authorization;
+using Rotativa.AspNetCore;
 
 namespace Kamtek_GestioN.Controllers
 {
@@ -25,6 +26,12 @@ namespace Kamtek_GestioN.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
+        }
+
+        public async Task<IActionResult> PDF()
+        {
+            var categoriePdf = await _context.Categories.ToListAsync();
+            return new ViewAsPdf("PDF", categoriePdf);
         }
 
         // GET: Categories/Details/5

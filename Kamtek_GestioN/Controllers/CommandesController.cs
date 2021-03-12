@@ -120,7 +120,8 @@ namespace Kamtek_GestioN.Controllers
         // GET: Commandes/Create
         public IActionResult Create()
         {
-
+            var commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            ViewBag.commande = commande;
             return View();
         }
 

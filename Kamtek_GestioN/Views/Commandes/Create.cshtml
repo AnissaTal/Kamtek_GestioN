@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Creation de Commandes</h1>
+<h1 class="text-center">Sauvegarder de la commande</h1>
 
 <hr />
 <div class="container">
@@ -14,9 +14,9 @@
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    * Ajouter une référence du contrat pour les retours d'articles'
                     <label asp-for="RefContrat" class="control-label"></label>
                     <input asp-for="RefContrat" class="form-control" />
-                    <span asp-validation-for="RefContrat" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCommande" class="control-label"></label>
@@ -24,6 +24,7 @@
                     <span asp-validation-for="DateCommande" class="text-danger"></span>
                 </div>
                 <div>
+                    <p>Récapitulatif des articles : </p>
                     <table class="table">
                         <thead>
                             <tr>
@@ -31,39 +32,28 @@
                                     Utilisateur
                                 </th>
                                 <th>
-                                    Quantité
-                                </th>
-                                <th>
-                                    Date Ajout
-                                    <a href="C:\Users\CES INFORMATIQUE\Development\Project\Kamtek_GestioN\Kamtek_GestioN\Controllers\HomeController.cs">C:\Users\CES INFORMATIQUE\Development\Project\Kamtek_GestioN\Kamtek_GestioN\Controllers\HomeController.cs</a> Article Au Commande
-                                </th>
-                                <th>
                                     Nom Article
+                                </th>
+                                <th>
+                                    Quantité
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in ViewBag.ligneCommande)
+                            @foreach (var item in ViewBag.commande)
                             {
                                 <tr>
                                     <td>
                                         @item.UserId
                                     </td>
                                     <td>
-                                        @item.Quantite
-                                    </td>
-                                    <td>
-                                        @item.DateCreated
-                                    </td>
-                                    <td>
                                         @item.Article.Designation
                                     </td>
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@item.LigneId">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.LigneId">Details</a> |
-                                        <a asp-action="Delete" asp-route-id="@item.LigneId">Delete</a>
+                                        @item.Quantite
                                     </td>
+                                    <td></td>
                                 </tr>
                             }
                         </tbody>
@@ -71,7 +61,7 @@
 
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Sauvegarder" class="btn btn-info" />
                 </div>
             </form>
         </div>
@@ -79,7 +69,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Retour liste Commandes</a>
+    <a class="btn btn-secondary" asp-action="Index">Retour la Commande</a>
 </div>
 
 @section Scripts {

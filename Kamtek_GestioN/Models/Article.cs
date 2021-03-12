@@ -31,5 +31,7 @@ namespace Kamtek_GestioN.Models
         public int Quantite { get; set; }
 
         public virtual Categorie Categorie { get; set; }
+
+        public virtual ICollection<LigneCommande> LigneCommande { get; set; }
     }
 }

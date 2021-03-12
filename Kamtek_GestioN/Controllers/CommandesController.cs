@@ -101,6 +101,37 @@ namespace Kamtek_GestioN.Controllers
         }
 
         // Méthode manuelle
+        public IActionResult AddQuantity(int id)
+        {
+            List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            int index = isExist(id);
+            commande[index].Quantite++;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
+            return RedirectToAction("Index");
+        }
+
+        // Méthode manuelle
+        public IActionResult RemoveQuantity(int id)
+        {
+            List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            int index = isExist(id);
+            if (commande[index].Quantite == 1)
+            {
+                // Si dans la commande, la quantité de ligneCommande à cet index est == 1
+                // Tu supprimes la ligneCommande de la commande en cours
+                commande.RemoveAt(index);
+
+            }
+            else
+            {
+                commande[index].Quantite--;
+            }
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
+            return RedirectToAction("Index");
+        }
+
+
+        // Méthode manuelle
         private int isExist(int id)
         {
             List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");

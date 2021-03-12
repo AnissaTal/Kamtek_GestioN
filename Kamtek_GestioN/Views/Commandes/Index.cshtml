@@ -31,7 +31,11 @@ else
                 <tr>
                     <td>@item.Article.Id</td>
                     <td>@item.Article.Designation</td>
-                    <td>@item.Quantite</td>
+                    <td>
+                        @item.Quantite
+                        <a class="btn btn-info" asp-controller="Commandes" asp-action="AddQuantity" asp-route-id="@item.Article.Id">+</a>
+                        <a class="btn btn-info" asp-controller="Commandes" asp-action="RemoveQuantity" asp-route-id="@item.Article.Id">-</a>
+                     </td>
                     <td>@item.DateCreated</td>
                     <td><a class="btn btn-info" asp-controller="Commandes" asp-action="remove" asp-route-id="@item.Article.Id">Retirer</a></td>
                     <td></td>

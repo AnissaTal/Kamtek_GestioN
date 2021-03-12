@@ -5,6 +5,7 @@
 
 <h1>Commande</h1>
 
+
 <table class="table">
     <thead>
         <tr>
@@ -19,14 +20,14 @@
     <tbody>
         @foreach (var item in ViewBag.commande)
         {
-        <tr>
-            <td>@item.Article.Id</td>
-            <td>@item.Article.Designation</td>
-            <td>@item.Quantite</td>
-            <td>@item.DateCreated</td>
-            <td><a asp-controller="Commandes" asp-action="remove" asp-route-id="@item.Article.Id">Retirer</a></td>
-            <td></td>
-        </tr>
+            <tr>
+                <td>@item.Article.Id</td>
+                <td>@item.Article.Designation</td>
+                <td>@item.Quantite</td>
+                <td>@item.DateCreated</td>
+                <td><a asp-controller="Commandes" asp-action="remove" asp-route-id="@item.Article.Id">Retirer</a></td>
+                <td></td>
+            </tr>
         }
     </tbody>
 </table>

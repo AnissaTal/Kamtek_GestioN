@@ -11,6 +11,8 @@ using Kamtek_GestioN.ViewModel;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Kamtek_GestioN.Controllers
 {
@@ -18,12 +20,12 @@ namespace Kamtek_GestioN.Controllers
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _webHosting;
 
-        private static List<Article> listarticle;
-
-        public ArticlesController(ApplicationDbContext context)
+        public ArticlesController(ApplicationDbContext context, IWebHostEnvironment webHosting)
         {
             _context = context;
+            _webHosting = webHosting;
         }
 
         // GET: Articles
@@ -81,9 +83,23 @@ namespace Kamtek_GestioN.Controllers
             {
 
                 Article article = new Article();
+                var filename = string.Empty;
+                filename = "logoKamteck.png";
+
+                string webRootPath = _webHosting.WebRootPath;
+
+                if (articleVM.PhotoVM != null)
+                {
+                    filename = Path.GetFileName(articleVM.PhotoVM.FileName);
+                    var path = Path.Combine(webRootPath + "/Images/", filename);
+                    var filestream = new FileStream(path, FileMode.Create);
+                    articleVM.PhotoVM.CopyTo(filestream);
+                }
+
                 var config = new MapperConfiguration(cfg =>cfg.CreateMap<ArticleVM, Article>());
                 var mapper = new Mapper(config);
                 article = mapper.Map<Article>(articleVM);
+                article.Photo = filename;
 
                 article.Categorie = await _context.Categories.FindAsync(articleVM.IdCategorie);
 

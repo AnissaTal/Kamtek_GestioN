@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Kamtek_GestioN.Models.Categorie>
+
+@{
+    ViewData["Title"] = "PDF";
+    Layout = "~/Views/Shared/_LayoutPdf.cshtml";
+}
+
+<h1>Inventaire catégories</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>    
+        </tr>
+}
+    </tbody>
+</table>

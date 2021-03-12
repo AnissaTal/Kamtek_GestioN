@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Kamtek_GestioN.ViewModel
 
         public string Etat { get; set; }
 
-        public string Photo { get; set; }
+        public IFormFile PhotoVM { get; set; }
 
         [Display(Name = "Date d'entrée")]
         public DateTime DateEntree { get; set; }

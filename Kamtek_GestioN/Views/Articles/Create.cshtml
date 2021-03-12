@@ -12,7 +12,7 @@
 <div class="container" >
     <div class="row justify-content-lg-start">
         
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row justify-content-around">
@@ -35,9 +35,12 @@
             <div class="row justify-content-around">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label asp-for="Photo" class="control-label font-weight-bold"></label>
-                        <input asp-for="Photo" class="form-control" />
-                        <span asp-validation-for="Photo" class="text-danger"></span>
+                        <label asp-for="PhotoVM" class="control-label font-weight-bold"></label>
+                        <input asp-for="PhotoVM" class="form-control" id="inputGroupFile01" onchange="document.getElementById('ImageToShow').src = window.URL.createObjectURL(this.files[0])" />
+                        <span asp-validation-for="PhotoVM" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <img id="ImageToShow" alt="" class="img-fluid" />
                     </div>
                 </div>
                 <div class="col-sm-6">

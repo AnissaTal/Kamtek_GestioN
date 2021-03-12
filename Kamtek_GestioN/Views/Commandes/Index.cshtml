@@ -21,7 +21,6 @@ else
                 <th>Désignation</th>
                 <th>Quantité</th>
                 <th>Date de création</th>
-                <th>Option</th>
                 <th></th>
             </tr>
         </thead>
@@ -37,7 +36,7 @@ else
                         <a class="btn btn-info" asp-controller="Commandes" asp-action="RemoveQuantity" asp-route-id="@item.Article.Id">-</a>
                      </td>
                     <td>@item.DateCreated</td>
-                    <td><a class="btn btn-info" asp-controller="Commandes" asp-action="remove" asp-route-id="@item.Article.Id">Retirer</a></td>
+                   
                     <td></td>
                 </tr>
             }

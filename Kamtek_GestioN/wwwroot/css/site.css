@@ -70,3 +70,28 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+.dropdown-menu > a:hover {
+    background-image: none;
+    background-color: #28A080;
+}
+
+/*boutons d'accueil*/
+.btn-acceuil {
+    color: #fff;
+    background-color: #00b1ab;
+    border-color: #00b1ab;
+}
+.dropdown {
+    margin:2px;
+}
+/*boutons PDF*/
+.btn-pdf {
+    color: #fff;
+    background-color: #00b1ab;
+    border-color: #00b1ab;
+}
+.btn-art {
+    color: #fff;
+    background-color: #0EA796;
+    border-color: #0EA796;
+}

@@ -9,12 +9,17 @@ using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
 using Kamtek_GestioN.ViewModel;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Rotativa.AspNetCore;
 
 namespace Kamtek_GestioN.Controllers
 {
+    [Authorize]
     public class ArticlesController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        private static List<Article> listarticle;
 
         public ArticlesController(ApplicationDbContext context)
         {
@@ -22,11 +27,21 @@ namespace Kamtek_GestioN.Controllers
         }
 
         // GET: Articles
+       
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articles.Include(x => x.Categorie).ToListAsync());
+            
         }
 
+        public async Task<IActionResult> PDF()
+        {
+            var articlePdf = await _context.Articles.Include(x => x.Categorie).ToListAsync();
+            return new ViewAsPdf("PDF", articlePdf);
+            
+        }
+
+        
         // GET: Articles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,6 +60,7 @@ namespace Kamtek_GestioN.Controllers
             return View(article);
         }
 
+        
         // GET: Articles/Create
         public IActionResult Create()
         {
@@ -55,6 +71,8 @@ namespace Kamtek_GestioN.Controllers
         // POST: Articles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ArticleVM articleVM)

@@ -9,6 +9,7 @@ using Kamtek_GestioN.Data;
 using Kamtek_GestioN.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using Kamtek_GestioN.Helpers;
 
 namespace Kamtek_GestioN.Controllers
 {
@@ -16,8 +17,6 @@ namespace Kamtek_GestioN.Controllers
     public class CommandesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public string UserSession { get; set; } // Session utilisateur en cours
-        public const string CartSessionKey = "UserId"; // pour créer une clé de session de l'utilisateur
 
         public CommandesController(ApplicationDbContext context)
         {
@@ -25,90 +24,93 @@ namespace Kamtek_GestioN.Controllers
         }
 
         // GET: Commandes
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //C'est pour afficher toutes les commandes 
-            return View(await _context.Commandes.ToListAsync());
-        }
-
-
-        // GET: Commandes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            //pour les details de chaque commande 
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var commande = await _context.Commandes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (commande == null)
-            {
-                return NotFound();
-            }
-
-            return View(commande);
-        }
-
-        // GET: Commandes/Create
-        public IActionResult Create(int id)
-        {
-            // Permet à des articles d'être inclus dans le panier d'achat en fonction de l'id récupérer dans l'url
-
-            // Récupérer l'article depuis la base de donnée
-            UserSession = GetUserId();
-
-            // Tu récupéres la ligne de commande pour l'utilisateur actuel et l'article par 
-            // rapport à l'id que tu récupéres dans l'url
-            var ligneCommande = _context.LigneCommandes.SingleOrDefault(
-                c => c.UserId == UserSession && c.Article.Id == id
-                );
-
-            if (ligneCommande == null)
-            {
-                // Si la ligne de commande n'existe pas ou est nul
-                // Tu crées une nouvelle instance de ligne de commande 
-                ligneCommande = new LigneCommande
-                {
-                    LigneId = Guid.NewGuid().ToString(),
-                    UserId = UserSession,
-                    Article = _context.Articles.SingleOrDefault(a => a.Id == id),
-                    Quantite = 1,
-                    DateCreated = DateTime.Now
-                };
-
-                _context.LigneCommandes.Add(ligneCommande);
-            }
-            else
-            {
-                // Si l'article existe déjà dans le panier
-                // Tu ajoutes un à la quantité
-                ligneCommande.Quantite++;
-            }
-            _context.SaveChanges();
-
-            ViewBag.ligneCommande = _context.LigneCommandes.Include(x => x.Article).Where(
-                y => y.UserId == UserSession
-                ).ToList();
-
+            //Pour afficher la Commande en cours
+            var commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            ViewBag.commande = commande;
             return View();
         }
 
-        private string GetUserId()
+        // Méthodes pour Ajouter un article au panier via une ligne de commande
+        // Méthode manuelle
+        public IActionResult Ajouter(int id)
         {
-            // Penses à ajouter services.AddSessions() et app.UseSession() dans startup.cs
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(CartSessionKey)))
+            // 1. Via l'url, tu récupéres l'id de l'article passé par le bouton ajouter asp-route-id
+            // 2. Tu vas créer une instance d'un objet Article
+            // !! Tu dois faire un test si id == null et rediriger ça sur la page index des articles
+            Article article = _context.Articles.SingleOrDefault(a => a.Id == id);
+
+            // 3. Si la commande n'existe pas, tu vas créer une commande et ajouter une ligne de commande avec un article
+            if (SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande") == null)
             {
-                // Si la session de l'utilisateur est null ou vide, 
-                // Tu crées une session random 
-                Guid tempUserId = Guid.NewGuid();
-                // Tu injectes ça dans la cartSessionKey
-                HttpContext.Session.SetString(CartSessionKey, tempUserId.ToString());
-                // tu retournes l'userId
-                return HttpContext.Session.GetString(CartSessionKey);
+                List<LigneCommande> commande = new List<LigneCommande>();
+                commande.Add(new LigneCommande { 
+                    Article = article,
+                    DateCreated = DateTime.Now,
+                    Quantite = 1 
+                });
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
             }
-            return HttpContext.Session.GetString(CartSessionKey);
+            else 
+            {
+                // Sinon tu récupéres la commande en cours et tu mets à jours la commande
+                List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+                // 4. Tu vérifies si l'article est déjà en commande
+                int index = isExist(id);
+                if (index != -1)
+                {
+                    // 5. Si c'est le cas, tu modifies la quantité de la ligne de commande
+                    commande[index].Quantite++;
+                }
+                else
+                {
+                    // 6. Sinon tu ajoutes l'articles à la commande
+                    commande.Add(new LigneCommande {
+                        Article = article,
+                        DateCreated = DateTime.Now,
+                        Quantite = 1
+                    });
+                }
+                // 7. Tu mets à jour la commande 
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // Méthode manuelle
+        public IActionResult Remove(int id)
+        {
+            List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            int index = isExist(id);
+            commande.RemoveAt(index);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "commande", commande);
+            return RedirectToAction("Index");
+        }
+
+        // Méthode manuelle
+        private int isExist(int id)
+        {
+            List<LigneCommande> commande = SessionHelper.GetObjectFromJson<List<LigneCommande>>(HttpContext.Session, "commande");
+            for (int i = 0; i < commande.Count; i++)
+            {
+                if (commande[i].Article.Id.Equals(id))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+
+
+
+        // GET: Commandes/Create
+        public IActionResult Create()
+        {
+
+            return View();
         }
 
         // POST: Commandes/Create
